@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Aclonica&family=Merriweather:ital@0;1&family=Poppins:ital,wght@0,400;0,700;0,800;1,400;1,700;1,800&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Work+Sans:wght@400;500;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="libs/css/style.css">
+    
+</head>
+<body>
+    <div class="container">
+        <div class = "Table-container">
+            <table class="table">
+                <tr class="table-rows">
+                    <th>API Name</th>
+                    <th>API Description</th>
+                    <th>Try</th>
+                </tr>
+                <tr>
+                    <td>1. WikipediaSearch </td>
+                    <td id="Description">This returns intersting information about the inputed word, and this could be any word. <br> Input a word; <br>
+                        <input id="userInput" type="text" placeholder="e.g car"></input>
+                        
+                    </td>
+                    <td><button id="btn1">Submit</button></td>
+                </tr>
+                <tr>
+                    <td>2. Postal Code Search</td>
+                    <td>This returns vital information about the placename/postalcode jquery as JSON format. choose a country and input a postalcode with no spaces;<br>
+                        <select id="countrySelect">
+                            <option value="US">United States</option>
+                            <option value="CA">Canada</option>
+                            <option value="GB">United Kingdom</option>
+                            <option value="FR">France</option>
+                            <option value="DE">Germany</option>
+                            <option value="JP">Japan</option>
+                            <option value="AU">Australia</option>
+                            <option value="ES">Spain</option>
+                            <option value="IT">Italy</option>
+                            <option value="BR">Brazil</option>
+                            <option value="CN">China</option>
+                            <option value="IN">India</option>
+                            <option value="KR">South Korea</option>
+                            <option value="MX">Mexico</option>
+                            <option value="RU">Russia</option>
+                            <option value="AR">Argentina</option>
+                            <option value="ZA">South Africa</option>
+                        </select>
+                        <input type="Text" id="postalCode" placeholder="postalcode" required></input>
+                    </td>
+                    <td><button id="btn2">Submit</button></td>
+                </tr>
+                <tr>
+                    <td>3. Timezone</td>
+                    <td>This returns the timezone at the lat/lng with GMT offset (1. January) and dst offset (1. July). <br>
+                    Input the Lat/Lng;
+                    <input type="number" id="lat" placeholder="lat"></input><br>
+                    <input type="number" id="lng" placeholder="lng"></input>
+                    </td>
+                    <td><button id="btn3">Submit</button></td>
+                </tr>
+                <tr>
+                    <td colspan ="3" id="result">Result</td>
+                    
+
+
+                </tr>
+    
+            </table>
+        </div>
+        <div class="footer">
+            <p>FavourAltraide 2023</p>
+        </div>
+        <div>
+
+        </div>
+    </div>
+    <script src="libs/js/jquery/jquery-3.7.1.min.js"></script>
+    
+    <script src="libs/js/script.js"></script>
+    
+
+    
+</body>
+</html>
