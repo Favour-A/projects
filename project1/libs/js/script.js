@@ -1,5 +1,4 @@
 
-
 let countryFlag;
 const flagContainer = document.getElementById('flags');
 const resultConvert = document.getElementById('conversion');
@@ -172,7 +171,7 @@ map.locate({setView: true, maxZoom: 8});
 function onLocationFound(e) {
      var radius = e.accuracy;
         
-    L.circle(e.latlng, radius).addTo(map);
+    //L.circle(e.latlng, radius).addTo(map);
     
  }
 
@@ -260,7 +259,7 @@ function getCountries() {
             
 
             map.setView([longitude, latitude], 12);
-            L.marker([longitude, latitude]).addTo(map);
+           
 
              
         });
@@ -309,37 +308,7 @@ $.ajax({
 });
 }
 
-    // $.ajax({
-    //     url: "libs/php/getB.php",
-    //     type: 'POST',
-    //     dataType: 'json',
-    //     data: {
-    //       countryCode: countryCode
-    //     },
-    //     success: function (result) {
-                
-    //       if (result.status.code == 200) {
-            
-    //         result.data.forEach(function(item) {
-              
-    //           L.marker([item.lat, item.lng], {icon: airportsIcon})
-    //             .bindTooltip(item.name, {direction: 'top', sticky: true})
-    //             .addTo(airports);
-              
-    //         })
-           
-    //       } else {
-    
-    //         showToast("Error retrieving airport data", 4000, false);
-    
-    //       } 
-    
-    //     },
-    //     error: function (jqXHR, textStatus, errorThrown) {
-    //       showToast("Airports - server error", 4000, false);
-    //     }
-    //   });      
-         
+   
 
 function getBorder(countryCode) {
     $.ajax({
@@ -438,6 +407,9 @@ function getConversion(userCurrency) {
                     
                 calcResult();
             })
+            baseCurrency.addEventListener('keyUp', function (e) {
+                calcResult();
+            })
            for(let i = 0; i < getRate.options.length; i++) {
                if(getRate.options[i].innerHTML === userCurrency) {
                             getRate.selectedIndex = i;
@@ -452,34 +424,7 @@ function getConversion(userCurrency) {
 
 }
 
-//     convert.addEventListener('click', function (e) {
-        
-//     $.ajax({
-//         url: "libs/php/conversion.php",
-//         type: "GET",
-        
-//         dataType: "json",
-//         data: {
-//             from_currency : userCurrency
-            
-//         },
-//         success: function (result) {
-//             const exchangeRate = parseInt(amount.value)/result.data[`USD_${userCurrency}`] + "";
-//             finalAmount.innerHTML = exchangeRate.substring(0, 5);
-           
-            
-           
-//         },
-//         error: function (jqXHR, textStatus, errorThrown) {
-//             const data = JSON.parse(jqXHR.responseText.replace("*", ""));
-//             const exchangeRate = parseInt(amount.value)/data.data[`USD_${userCurrency}`] + "";
-//             finalAmount.innerHTML = exchangeRate.substring(0, 5);
-           
-            
-            
-//         }
-//     });
-// });
+
 
 
 
@@ -647,20 +592,7 @@ function getWeather(capitalCity) {
            getWeather(capitalCity);
 
         
-        // getRate.innerHTML = result.data.map(country => {
-        //     if (country.currencies) {
-        //         const keys = Object.keys(country.currencies);
-                
         
-        //         // Check if keys exist before accessing properties
-        //         const currencyName = keys.length > 0 ? country.currencies[keys[0]].name : 'Unknown Currency';
-        
-        //         return `<option value='${country.currencies[keys[0]]}'>${currencyName}</option>`;
-        //     } else {
-                
-        //         return '';  // or provide a default option, or handle the error as needed
-        //     }
-        // });
         
 
             countryContainer.innerHTML = result.data.map(country => {
@@ -725,16 +657,7 @@ function getFlag(countryCode) {
         },
         success: function (result) {
 
-            // var airportIcon = L.icon({
-            //     iconUrl: 'libs/image/airport.png',
-            //     shadowUrl: 'libs/image/airport_shadow.png',
             
-            //     iconSize:     [18, 40], // size of the icon
-            //     shadowSize:   [8, 24], // size of the shadow
-            //     iconAnchor:   [11, 64], // point of the icon which will correspond to marker's location
-            //     shadowAnchor: [4, 32],  // the same for the shadow
-            //     popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-            // });
             for (let i = 0; i < result.data.geonames.length; i++) {
                 const marker = L.marker([result.data.geonames[i].lat, result.data.geonames[i].lng], {icon: myIcon});
                 marker.bindTooltip(` ${result.data.geonames[i].asciiName}`, {direction: 'top', sticky: true}).addTo(airports);
@@ -757,16 +680,7 @@ function getFlag(countryCode) {
         },
         success: function (result) {
 
-            // var hospitalIcon = L.icon({
-            //     iconUrl: 'libs/image/hospital.png',
-            //     shadowUrl: 'libs/image/hospital_shadow.png',
-            
-            //     iconSize:     [28, 40], // size of the icon
-            //     shadowSize:   [10, 34], // size of the shadow
-            //     iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-            //     shadowAnchor: [4, 62],  // the same for the shadow
-            //     popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-            // });
+           
             for (let i = 0; i < result.data.geonames.length; i++) {
                 const marker = L.marker([result.data.geonames[i].lat, result.data.geonames[i].lng], {icon: myHospitalIcon});
                 marker.bindTooltip(`${result.data.geonames[i].asciiName}`, {direction: 'top', sticky: true}).addTo(hospitals);
@@ -789,16 +703,7 @@ function getFlag(countryCode) {
         },
         success: function (result) {
 
-            // var universityIcon = L.icon({
-            //     iconUrl: 'libs/image/university.png',
-            //     shadowUrl: 'libs/image/university_shadow.png',
-            
-            //     iconSize:     [18, 40], // size of the icon
-            //     shadowSize:   [8, 24], // size of the shadow
-            //     iconAnchor:   [11, 64], // point of the icon which will correspond to marker's location
-            //     shadowAnchor: [4, 32],  // the same for the shadow
-            //     popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-            // });
+           
             for (let i = 0; i < result.data.geonames.length; i++) {
                 const marker = L.marker([result.data.geonames[i].lat, result.data.geonames[i].lng], {icon: myUniversityIcon});
                 marker.bindTooltip(`${result.data.geonames[i].asciiName}`, {direction: 'top', sticky: true}).addTo(universities);
@@ -821,16 +726,7 @@ function getFlag(countryCode) {
         },
         success: function (result) {
 
-            // var hotelIcon = L.icon({
-            //     iconUrl: 'libs/image/hotel.png',
-            //     shadowUrl: 'libs/image/hotel_shadow.png',
             
-            //     iconSize:     [18, 40], // size of the icon
-            //     shadowSize:   [8, 24], // size of the shadow
-            //     iconAnchor:   [11, 64], // point of the icon which will correspond to marker's location
-            //     shadowAnchor: [4, 32],  // the same for the shadow
-            //     popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-            // });
             for (let i = 0; i < result.data.geonames.length; i++) {
                 const marker = L.marker([result.data.geonames[i].lat, result.data.geonames[i].lng], {icon: myHotelIcon});
                 marker.bindTooltip(`${result.data.geonames[i].asciiName}`, {direction: 'top', sticky: true}).addTo(hotels);
