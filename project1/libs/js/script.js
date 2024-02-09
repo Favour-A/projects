@@ -1,5 +1,4 @@
 
-
 let countryFlag;
 const flagContainer = document.getElementById('flags');
 const resultConvert = document.getElementById('conversion');
@@ -172,7 +171,7 @@ map.locate({setView: true, maxZoom: 8});
 function onLocationFound(e) {
      var radius = e.accuracy;
         
-    L.circle(e.latlng, radius).addTo(map);
+    //L.circle(e.latlng, radius).addTo(map);
     
  }
 
@@ -269,6 +268,11 @@ function getCountries() {
             
 
             map.setView([longitude, latitude], 12);
+<<<<<<< HEAD
+=======
+           
+
+>>>>>>> 4099df109cdbd5593a79488fa0ea320236a05201
              
         });
   
@@ -321,6 +325,10 @@ $.ajax({
 });
 }
 
+<<<<<<< HEAD
+=======
+   
+>>>>>>> 4099df109cdbd5593a79488fa0ea320236a05201
 
 function getBorder(countryCode) {
     $.ajax({
@@ -419,9 +427,14 @@ function getConversion(userCurrency) {
                     
                 calcResult();
             })
+<<<<<<< HEAD
             baseCurrency.addEventListener('keyup', function (e) {
                         
                     calcResult();
+=======
+            baseCurrency.addEventListener('keyUp', function (e) {
+                calcResult();
+>>>>>>> 4099df109cdbd5593a79488fa0ea320236a05201
             })
            for(let i = 0; i < getRate.options.length; i++) {
                if(getRate.options[i].innerHTML === userCurrency) {
@@ -437,6 +450,10 @@ function getConversion(userCurrency) {
 
 }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4099df109cdbd5593a79488fa0ea320236a05201
 
 
 
@@ -604,7 +621,13 @@ function getWeather(capitalCity) {
            getWeather(capitalCity);
 
         
+<<<<<<< HEAD
        
+=======
+        
+        
+
+>>>>>>> 4099df109cdbd5593a79488fa0ea320236a05201
             countryContainer.innerHTML = result.data.map(country => {
                 
     
@@ -667,7 +690,11 @@ function getFlag(countryCode) {
         },
         success: function (result) {
 
+<<<<<<< HEAD
            
+=======
+            
+>>>>>>> 4099df109cdbd5593a79488fa0ea320236a05201
             for (let i = 0; i < result.data.geonames.length; i++) {
                 const marker = L.marker([result.data.geonames[i].lat, result.data.geonames[i].lng], {icon: myIcon});
                 marker.bindTooltip(` ${result.data.geonames[i].asciiName}`, {direction: 'top', sticky: true}).addTo(airports);
@@ -690,7 +717,11 @@ function getFlag(countryCode) {
         },
         success: function (result) {
 
+<<<<<<< HEAD
             
+=======
+           
+>>>>>>> 4099df109cdbd5593a79488fa0ea320236a05201
             for (let i = 0; i < result.data.geonames.length; i++) {
                 const marker = L.marker([result.data.geonames[i].lat, result.data.geonames[i].lng], {icon: myHospitalIcon});
                 marker.bindTooltip(`${result.data.geonames[i].asciiName}`, {direction: 'top', sticky: true}).addTo(hospitals);
@@ -713,7 +744,11 @@ function getFlag(countryCode) {
         },
         success: function (result) {
 
+<<<<<<< HEAD
             
+=======
+           
+>>>>>>> 4099df109cdbd5593a79488fa0ea320236a05201
             for (let i = 0; i < result.data.geonames.length; i++) {
                 const marker = L.marker([result.data.geonames[i].lat, result.data.geonames[i].lng], {icon: myUniversityIcon});
                 marker.bindTooltip(`${result.data.geonames[i].asciiName}`, {direction: 'top', sticky: true}).addTo(universities);
@@ -736,7 +771,11 @@ function getFlag(countryCode) {
         },
         success: function (result) {
 
+<<<<<<< HEAD
            
+=======
+            
+>>>>>>> 4099df109cdbd5593a79488fa0ea320236a05201
             for (let i = 0; i < result.data.geonames.length; i++) {
                 const marker = L.marker([result.data.geonames[i].lat, result.data.geonames[i].lng], {icon: myHotelIcon});
                 marker.bindTooltip(`${result.data.geonames[i].asciiName}`, {direction: 'top', sticky: true}).addTo(hotels);

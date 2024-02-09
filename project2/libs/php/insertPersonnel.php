@@ -36,15 +36,14 @@
     $jobTitle = $_REQUEST['jobTitle'];
     $email = $_REQUEST['email'];
     $departmentID = $_REQUEST['departmentID'];
-    $locationID = $_REQUEST['locationID'];
-
+   
     // SQL statement accepts parameters and is prepared to avoid SQL injection.
     // $_REQUEST used for development / debugging. Remember to change to $_POST for production
 
-    $query = $conn->prepare('INSERT INTO personnel (firstName, lastName, jobTitle, email, departmentID, locationID)
-        VALUES (?, ?, ?, ?, ?, ?)');
+    $query = $conn->prepare('INSERT INTO personnel (firstName, lastName, jobTitle, email, departmentID)
+        VALUES (?, ?, ?, ?, ?)');
 
-    $query->bind_param("ssssii", $firstName, $lastName, $jobTitle, $email, $departmentID, $locationID);
+    $query->bind_param("ssssi", $firstName, $lastName, $jobTitle, $email, $departmentID, $locationID);
 
     $query->execute();
 

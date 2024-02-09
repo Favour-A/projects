@@ -34,8 +34,8 @@
 
 	// SQL does not accept parameters and so is not prepared
 
-	$query = 'SELECT id, name, locationID FROM department';
-    $query2 = 'SELECT id, name FROM location';
+	$query = 'SELECT id, name, locationID FROM department ORDER BY name ASC';
+    $query2 = 'SELECT id, name FROM location ORDER BY name ASC';
 
 	$result = $conn->query($query);
     $result2 = $conn->query($query2);
