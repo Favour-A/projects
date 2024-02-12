@@ -1,8 +1,4 @@
-// const search = document.getElementById("searchInp");
 
-// search.addEventListener("keyup", (e) => {
-//    console.log(e.target.value);
-// });
 const activeSearch = document.querySelectorAll(".tab-pane");
 const addButton = document.getElementById("addBtn");
 const departmentFilter = document.getElementById("departmentFilter");
@@ -251,56 +247,62 @@ filterByLocation.addEventListener("change", (e) => {
   filterPersonnel(e.target.value, "location");
 });
 
+$("#addPersonnelModal").on("show.bs.modal", function (e) {
+    
+  $.ajax({
+    url: "./libs/php/getLocationandDept.php",
+    type: "POST",
+    dataType: "json",
+    
+    success: function (result) {
+      document.getElementById("addPersonnelDepartment").innerHTML = result.department.map((department) => {
+        return `
+        <option value="${department.id}">${department.name}</option>
+        `
+      }).join("");
+      
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+      $("#addPersonnelModal .modal-title").replaceWith(
+        "Error retrieving data"
+      );
+    }
+  })
+});
+
+$("#addDepartmentModal").on("show.bs.modal", function (e) {
+
+  $.ajax({
+    url: "./libs/php/getLocationandDept.php",
+    type: "POST",
+    dataType: "json",
+    
+    success: function (result) {
+      document.getElementById("locationID").innerHTML = result.location.map((location) => {
+        return `
+        <option value="${location.id}">${location.name}</option>
+        `
+      }).join("");
+
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+      $("#addDepartmentModal .modal-title").replaceWith(
+        "Error retrieving data"
+      );
+    }
+  });
+
+})
 $('#addBtn').click(function() {
   if ($("#personnelBtn").hasClass("active")) {
     $('#addPersonnelModal').modal('show');
-
-    $.ajax({
-      url: "./libs/php/getLocationandDept.php",
-      type: "POST",
-      dataType: "json",
-      
-      success: function (result) {
-        document.getElementById("addPersonnelDepartment").innerHTML = result.department.map((department) => {
-          return `
-          <option value="${department.id}">${department.name}</option>
-          `
-        }).join("");
-        
-      },
-      error: function (jqXHR, textStatus, errorThrown) {
-        $("#addPersonnelModal .modal-title").replaceWith(
-          "Error retrieving data"
-        );
-      }
-    })
+ 
   }
    else if ($("#locationsBtn").hasClass("active")) {
     $('#addLocationModal').modal('show');
   }
   else if ($("#departmentsBtn").hasClass("active")) {
     $('#addDepartmentModal').modal('show');
-
-    $.ajax({
-      url: "./libs/php/getLocationandDept.php",
-      type: "POST",
-      dataType: "json",
-      
-      success: function (result) {
-        document.getElementById("locationID").innerHTML = result.location.map((location) => {
-          return `
-          <option value="${location.id}">${location.name}</option>
-          `
-        }).join("");
-  
-      },
-      error: function (jqXHR, textStatus, errorThrown) {
-        $("#addDepartmentModal .modal-title").replaceWith(
-          "Error retrieving data"
-        );
-      }
-    });
-
 
   }
 });
@@ -462,12 +464,7 @@ $("#searchInp").on("keyup", function () {
     
   });
   
-  $("#filterBtn").click(function () {
-    
-    // Open a modal of your own design that allows the user to apply a filter to the personnel table on either department or location
-    
-  });
-  
+ 
   
   $("#personnelBtn").click(function () {
     
@@ -913,6 +910,7 @@ $("#searchInp").on("keyup", function () {
   });
   
   const getPersonnel = () => {
+    //populates the personnel table
     $.ajax({
       url: "./libs/php/getAll.php",
       type: "POST",
@@ -966,7 +964,7 @@ $("#searchInp").on("keyup", function () {
   getPersonnel();
 
   const getDepartment = () => {
-    
+    //popultes the department table
     $.ajax({
       url: "./libs/php/getAllDepartments.php",
       type: "POST",
@@ -997,6 +995,7 @@ $("#searchInp").on("keyup", function () {
         </tr> 
 `
         }).join("");
+        
         const deleteDepartmentBtn = document.querySelectorAll("#deleteDepartmentBtn");
         deleteDepartmentBtn.forEach((btn) => {
           btn.addEventListener("click", () => {
@@ -1024,6 +1023,7 @@ $("#searchInp").on("keyup", function () {
   getDepartment();
 
 const getLocations = () => {
+  //populates the location table
   $.ajax({
     url: "./libs/php/getAllLocations.php",
     type: "POST",
