@@ -46,10 +46,10 @@ const mySearch = (input) => {
                     ${person.email}
                   </td>
                   <td class="text-end text-nowrap">
-                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editPersonnelModal" data-id="23">
+                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editPersonnelModal" data-id="${person.id}">
                       <i class="fa-solid fa-pencil fa-fw"></i>
                     </button>
-                    <button type="button" class="btn btn-primary btn-sm deletePersonnelBtn" data-id="23">
+                    <button type="button" class="btn btn-primary btn-sm deletePersonnelBtn" data-bs-toggle="modal" data-bs-target="#deletePersonnelModal" data-id="${person.id}">
                       <i class="fa-solid fa-trash fa-fw"></i>
                     </button>
                   </td>
@@ -73,14 +73,21 @@ const mySearch = (input) => {
             ${department.locationID}
           </td>
           <td class="align-middle text-end text-nowrap">
-            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#deleteDepartmentModal" data-id="1">
+            <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editDepartmentModal" data-id="${department.id}">
               <i class="fa-solid fa-pencil fa-fw"></i>
             </button>
-            <button type="button" class="btn btn-primary btn-sm deleteDepartmentBtn" data-id="1">
+            <button type="button" class="btn btn-primary btn-sm deleteDepartmentBtn" id="deleteDepartmentBtn" data-id="${department.id}">
               <i class="fa-solid fa-trash fa-fw"></i>
             </button>
           </td> `
       }).join("");
+      const deleteDepartmentBtn = document.querySelectorAll("#deleteDepartmentBtn");
+      deleteDepartmentBtn.forEach((btn) => {
+        btn.addEventListener("click", () => {
+         deleteDepartment(btn.dataset.id);
+         clickedDept = btn.dataset.id;
+        })
+      });
     }
       else if(tab.id === 'locations-tab-pane'){
         const table = tab.querySelector("tbody");
@@ -94,15 +101,22 @@ const mySearch = (input) => {
                     ${location.name}
                   </td>
                   <td class="align-middle text-end text-nowrap">
-                    <button type="button" class="btn btn-primary btn-sm">
+                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editLocationModal" data-id="${location.id}">
                       <i class="fa-solid fa-pencil fa-fw"></i>
                     </button>
-                    <button type="button" class="btn btn-primary btn-sm">
+                    <button type="button" class="btn btn-primary btn-sm" id= "deleteLocationBtn" data-id="${location.id}">
                       <i class="fa-solid fa-trash fa-fw"></i>
                     </button>
                   </td>
                 </tr>`
       }).join("");
+      const deleteLocationBtn = document.querySelectorAll("#deleteLocationBtn");
+      deleteLocationBtn.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          deleteLocation(btn.dataset.id);
+          clickedloc = btn.dataset.id;
+        })
+      }); 
       }
 }}
 )};
@@ -160,10 +174,10 @@ function filterPersonnel(val, where) {
                       ${personnel.email}
                     </td>
                     <td class="text-end text-nowrap">
-                      <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editPersonnelModal" data-id="23">
+                      <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editPersonnelModal"data-id="${personnel.id}">
                         <i class="fa-solid fa-pencil fa-fw"></i>
                       </button>
-                      <button type="button" class="btn btn-primary btn-sm deletePersonnelBtn" data-id="23">
+                      <button type="button" class="btn btn-primary btn-sm deletePersonnelBtn" data-bs-toggle="modal" data-bs-target="#deletePersonnelModal" data-id="${personnel.id}">
                         <i class="fa-solid fa-trash fa-fw"></i>
                       </button>
                     </td>
@@ -212,10 +226,10 @@ function filterPersonnel(val, where) {
                     ${personnel.email}
                   </td>
                   <td class="text-end text-nowrap">
-                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editPersonnelModal" data-id="23">
+                    <button type="button" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editPersonnelModal" data-id="${personnel.id}">
                       <i class="fa-solid fa-pencil fa-fw"></i>
                     </button>
-                    <button type="button" class="btn btn-primary btn-sm deletePersonnelBtn" data-id="23">
+                    <button type="button" class="btn btn-primary btn-sm deletePersonnelBtn" data-bs-toggle="modal" data-bs-target="#deletePersonnelModal" data-id="${personnel.id}">
                       <i class="fa-solid fa-trash fa-fw"></i>
                     </button>
                   </td>
@@ -416,13 +430,13 @@ $("#searchInp").on("keyup", function () {
   searchTimeout = setTimeout(function () {
     var searchText = $("#searchInp").val().trim(); // Trim to handle white spaces
 
-    if (searchText === "") {
-      // If the search input is empty, clear the search results
-      getPersonal();
-      getDepartment();
-      getLocations();
-      return;
-    }
+    // if (searchText === "") {
+    //   // If the search input is empty, clear the search results
+    //   getPersonal();
+    //   getDepartment();
+    //   getLocations();
+    //   return;
+    // }
     mySearch(searchText);
 
   }, 500);
@@ -591,7 +605,7 @@ $("#searchInp").on("keyup", function () {
         id: $(e.relatedTarget).attr("data-id")
       },
       success: function (result) {
-        console.log(result);
+    
         var resultCode = result.status.code;
         
         if (resultCode == 200) {
@@ -794,7 +808,7 @@ $("#searchInp").on("keyup", function () {
          id: id // Retrieves the data-id attribute from the calling button
        },
        success: function (result) {
-        console.log(result);
+       
          if (result.status.code == 200) {
            if (result.data[0].personnelCount == 0 || result.data[0].personnelCount == null) {
              $("#deleteDepartmentName").text(result.data[0].departmentName);
@@ -819,8 +833,7 @@ $("#searchInp").on("keyup", function () {
   $("#deleteDepartmentModal").on("show.bs.modal", function (e) {
     const deleteDeptBtn = document.getElementById("deleteDeptBtn");
     deleteDeptBtn.addEventListener("click", (e) => {
-      console.log(e);
-
+    
     $.ajax({
       url: "./libs/php/deleteDepartmentByID.php",
       type: "POST",
@@ -856,7 +869,7 @@ $("#searchInp").on("keyup", function () {
         id: id // Retrieves the data-id attribute from the calling button
       },
       success: function (result) {
-       console.log(result);
+      
         if (result.status.code == 200) {
           if (result.data[0].departmentCount == 0 || result.data[0].departmentCount == null) {
             $("#deleteLocationName").text(result.data[0].locationName);
