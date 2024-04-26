@@ -1,7 +1,7 @@
 
 <?php
 // Your API endpoint URL
-$apiEndpoint = "https://calendarific.com/api/v2/holidays?&api_key=cYCP8vcuLXhk1gFb01ey6QtsniPk0xtw&country=" . $_REQUEST['country'] . "&year=2023";
+$apiEndpoint = "https://calendarific.com/api/v2/holidays?&api_key=&country=" . $_REQUEST['country'] . "&year=2023";
 
 // Set up cURL
 $curl = curl_init($apiEndpoint);
