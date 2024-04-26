@@ -9,7 +9,7 @@ $executionStartTime = microtime(true);
 
 
 
-$url= "https://gnews.io/api/v4/top-headlines?category=general&lang=en&country=" . $_REQUEST['country'] . "&max=10&apikey=ff9e0c070245de3ddde4a48bc8d53815";
+$url= "https://gnews.io/api/v4/top-headlines?category=general&lang=en&country=" . $_REQUEST['country'] . "&max=10&apikey=";
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
