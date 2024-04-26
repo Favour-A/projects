@@ -6,7 +6,7 @@
     $executionStartTime = microtime(true);
 
     
-    $url= "https://openexchangerates.org/api/latest.json?app_id=c75e488ece47471bb6d033177d38e8f0";
+    $url= "https://openexchangerates.org/api/latest.json?app_id=";
     
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
